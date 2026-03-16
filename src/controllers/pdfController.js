@@ -1,6 +1,5 @@
-import AlunoModel from '../models/AlunoModel';
-import { generatePdf, generatePdfs, gerarPdfAluno } from '../utils/pdfHelper.js';
-
+import AlunoModel from '../models/AlunoModel.js';
+import { gerarPdfTodos, gerarPdfAluno } from '../utils/pdfHelper.js';
 
 export const relatorioPorId = async (req, res) => {
     try {
@@ -17,14 +16,15 @@ export const relatorioPorId = async (req, res) => {
         }
 
         const pdf = await gerarPdfAluno(aluno);
-        return res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': `inline; filename="aluno_${id}.pdf"`,
-        })
+        return res
+            .set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': `inline; filename="aluno_${id}.pdf"`,
+            })
 
-        send({pdf});
+            .send(pdf);
     } catch (error) {
-        console.error('Erro ao buscar:', error);
-        res.status(500).json({ error: 'Erro ao buscar aluno.' });
+        console.error('Erro ao gerar PDF:', error);
+        return res.status(500).json({ error: 'Erro ao gerar relatório.' });
     }
 };
