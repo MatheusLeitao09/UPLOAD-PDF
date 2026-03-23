@@ -11,15 +11,41 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
     console.log('🌱 Resetando tabela aluno...');
 
-    // Remove todos os registros
-    // await prisma.exemplo.deleteMany();
-
+    await prisma.aluno.deleteMany();
     console.log('📦 Inserindo novos registros...');
 
     await prisma.aluno.createMany({
         data: [
-            { nome: 'Notebook' },
-            { nome: 'Monitor' },
+            {
+                nome: 'Ana Silva',
+                escola: 'Escola Técnica Estadual',
+                turma: '3º A - Informática',
+                foto: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ana',
+            },
+            {
+                nome: 'Bruno Oliveira',
+                escola: 'Colégio Tiradentes',
+                turma: '2º B',
+                foto: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Bruno',
+            },
+            {
+                nome: 'Carla Souza',
+                escola: 'Escola Técnica Estadual',
+                turma: '3º A - Informática',
+                foto: null, // Campo opcional
+            },
+            {
+                nome: 'Diego Santos',
+                escola: 'Instituto Federal',
+                turma: '1º C - Mecatrônica',
+                foto: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Diego',
+            },
+            {
+                nome: 'Elena Martins',
+                escola: 'Colégio Dom Bosco',
+                turma: '9º Ano',
+                foto: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Elena',
+            },
         ],
     });
 

@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
-import AlunoModel from '../models/AlunoModel';
-import { processarFoto, removerFoto } from '../utils/fotoHelper';
+import AlunoModel from '../models/AlunoModel.js';
+import { processarFoto, removerFoto } from '../utils/fotoHelper.js';
 
 export const buscarPorId = async (req, res) => {
     try {

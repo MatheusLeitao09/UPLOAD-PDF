@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
 });
 
 // Rotas
-app.use('/alunos', alunoRoute);
-app.use('/alunos', fotoRoute);
 app.use('/alunos', pdfRoute);
+app.use('/alunos', fotoRoute);
+app.use('/alunos', alunoRoute);
 app.use('/uploads', express.static('uploads'));
 
 app.use((req, res) => {

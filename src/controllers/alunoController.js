@@ -75,7 +75,6 @@ export const atualizar = async (req, res) => {
         if (req.body.nome !== undefined) aluno.nome = req.body.nome;
         if (req.body.escola !== undefined) aluno.escola = req.body.escola;
         if (req.body.turma !== undefined) aluno.turma = req.body.turma;
-        if (req.body.turma !== undefined) aluno.turma = parseFloat(req.body.turma);
 
         const data = await aluno.atualizar();
 
@@ -92,15 +91,18 @@ export const deletar = async (req, res) => {
 
         if (isNaN(id)) return res.status(400).json({ error: 'ID inválido.' });
 
-        const exemplo = await ExemploModel.buscarPorId(parseInt(id));
+        const aluno = await AlunoModel.buscarPorId(parseInt(id));
 
-        if (!exemplo) {
+        if (!aluno) {
             return res.status(404).json({ error: 'Registro não encontrado para deletar.' });
         }
 
-        await exemplo.deletar();
+        await aluno.deletar();
 
-        res.json({ message: `O registro "${exemplo.nome}" foi deletado com sucesso!`, deletado: exemplo });
+        res.json({
+            message: `O registro "${aluno.nome}" foi deletado com sucesso!`,
+            deletado: aluno,
+        });
     } catch (error) {
         console.error('Erro ao deletar:', error);
         res.status(500).json({ error: 'Erro ao deletar registro.' });

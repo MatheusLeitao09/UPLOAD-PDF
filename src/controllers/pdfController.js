@@ -28,3 +28,24 @@ export const relatorioPorId = async (req, res) => {
         return res.status(500).json({ error: 'Erro ao gerar relatório.' });
     }
 };
+
+// Lele
+export const relatorioTodos = async (req, res) => {
+    try {
+        const registros = await AlunoModel.buscarTodos();
+
+        if (!registros || registros.length === 0)
+            return res.status(200).json({ message: 'Nenhum registro encontrado.' });
+
+        const pdf = await gerarPdfTodos(registros);
+        return res
+            .set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'inline; filename="alunos.pdf"',
+            })
+            .send(pdf);
+    } catch (error) {
+        console.error('Erro ao gerar PDF:', error);
+        return res.status(500).json({ error: 'Erro ao gerar relatório.' });
+    }
+};
